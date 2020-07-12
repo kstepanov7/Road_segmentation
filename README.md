@@ -25,3 +25,4 @@ Comparison of metrics is provided in the table below.
 
 [APLS metric](https://medium.com/the-downlinq/spacenet-road-detection-and-routing-challenge-part-i-d4f59d55bfce), which reflects logical topology and physical topology of predicted masks by comparing the difference between paths lengths on ground truth and predicted images, also was calculated.
  
+![alt text](https://github.com/kstepanov7/Roads-segmetation-with-Unet/blob/master/images/result_vgg.jpg?raw=true)
