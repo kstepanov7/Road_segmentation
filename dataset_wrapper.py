@@ -38,6 +38,7 @@ class Create_Dataset(utils_data.Dataset):
         images = Image.fromarray((images / images.max()* 255).astype(np.uint8))
         images = images.resize((512,512),Image.ANTIALIAS)
         seed = random.randint(0, 100)
+        random.seed(seed)
         torch.manual_seed(seed)
         images = self.transform(images)
 
@@ -48,6 +49,7 @@ class Create_Dataset(utils_data.Dataset):
         masks = Image.fromarray((masks / masks.max()* 255).astype(np.uint8))
         masks = masks.resize((512,512),Image.ANTIALIAS)
         masks = ImageOps.invert(masks)
+        random.seed(seed)
         torch.manual_seed(seed)
 
         masks = self.transform(masks)
