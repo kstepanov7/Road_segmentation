@@ -11,6 +11,8 @@ import os
 import torch
 import torch.utils.data as utils_data
 
+from PIL import Image, ImageOps
+from skimage import io
 
 #https://pytorch.org/tutorials/beginner/data_loading_tutorial.html
 class Create_Dataset(utils_data.Dataset):
