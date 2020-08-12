@@ -12,6 +12,7 @@ import torch
 import torch.utils.data as utils_data
 
 from PIL import Image, ImageOps
+import numpy as np
 import skimage
 from skimage import io
 
