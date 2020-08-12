@@ -37,7 +37,7 @@ class Create_Dataset(utils_data.Dataset):
         images = skimage.io.imread(os.path.join(self.images_dir, self.images_titles[idx]))[:,:,:3]
         images = Image.fromarray((images / images.max()* 255).astype(np.uint8))
         images = images.resize((512,512),Image.ANTIALIAS)
-        seed = random.randint(100)
+        seed = random.randint(0, 100)
         torch.manual_seed(seed)
         images = self.transform(images)
 
