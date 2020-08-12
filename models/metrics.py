@@ -184,9 +184,9 @@ class DiceFocalLoss(nn.Module):
         
         return Dice_f
 
-class VGGPerceptualLoss(torch.nn.Module, loss = IoULoss()):
+class VGGPerceptualLoss(torch.nn.Module):
     def __init__(self):
-        super(VGGPerceptualLoss, self).__init__()
+        super(VGGPerceptualLoss, self, loss = IoULoss()).__init__()
         blocks = []
         blocks.append(torchvision.models.vgg16(pretrained=True).features[:4].eval())
         blocks.append(torchvision.models.vgg16(pretrained=True).features[4:9].eval())
