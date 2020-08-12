@@ -15,6 +15,21 @@ import torch.nn.functional as F
 ### Target metrics ###
 #https://www.kaggle.com/bigironsphere/loss-function-library-keras-pytorch
 
+def calc_iou(prediction, ground_truth, tr = None):
+
+    n_images = len(prediction)
+    if tr != None:
+      for i in range(n_images):
+        prediction[i][prediction[i] <= tr] = 0
+        prediction[i][prediction[i] > tr] = 1
+
+    intersection, union = 0, 0
+    for i in range(n_images):
+        intersection += np.logical_and(prediction[i] > 0, ground_truth[i] > 0).astype(np.float32).sum() 
+        union += np.logical_or(prediction[i] > 0, ground_truth[i] > 0).astype(np.float32).sum()
+    return float(intersection) / union
+
+
 class IoULoss(nn.Module):
     def __init__(self, weight=None, size_average=True):
         super(IoULoss, self).__init__()
