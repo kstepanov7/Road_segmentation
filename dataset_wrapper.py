@@ -13,6 +13,7 @@ import torch.utils.data as utils_data
 
 from PIL import Image, ImageOps
 import numpy as np
+import random
 import skimage
 from skimage import io
 
