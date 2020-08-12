@@ -184,7 +184,7 @@ class DiceFocalLoss(nn.Module):
         
         return Dice_f
 
-class VGGPerceptualLoss(torch.nn.Module):
+class VGGPerceptualLoss(torch.nn.Module, loss = IoULoss()):
     def __init__(self):
         super(VGGPerceptualLoss, self).__init__()
         blocks = []
@@ -199,8 +199,7 @@ class VGGPerceptualLoss(torch.nn.Module):
         self.transform = torch.nn.functional.interpolate
         self.mean = torch.nn.Parameter(torch.tensor([0.485, 0.456, 0.406]).view(1,3,1,1))
         self.std = torch.nn.Parameter(torch.tensor([0.229, 0.224, 0.225]).view(1,3,1,1))
-        self.iou_loss = IoULoss().to(device)
-        self.mse_loss = torch.nn.MSELoss()
+        self.loss = loss
 
 
     def forward(self, input, target):
@@ -215,5 +214,5 @@ class VGGPerceptualLoss(torch.nn.Module):
         for block in self.blocks:
             x = block(x)
             y = block(y)
-            loss += self.iou_loss(x, y)
+            loss += self.loss(x, y)
         return loss
