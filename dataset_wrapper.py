@@ -12,7 +12,7 @@ import torch
 import torch.utils.data as utils_data
 
 from PIL import Image, ImageOps
-from skimage
+import skimage
 
 #https://pytorch.org/tutorials/beginner/data_loading_tutorial.html
 class Create_Dataset(utils_data.Dataset):
