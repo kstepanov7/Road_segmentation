@@ -18,7 +18,7 @@ logging.propagate = False
 logging.getLogger().setLevel(logging.ERROR)
 
 
-def run_epoch(model, optimizer, criterion, dataloader, device, epoch, mode = 'train', tr = 0.6):
+def run_epoch(model, optimizer, criterion, dataloader, device, epoch, mode = 'train'):
 
     if mode == 'train':
       model.train(True)
@@ -34,7 +34,7 @@ def run_epoch(model, optimizer, criterion, dataloader, device, epoch, mode = 'tr
             mask = mask[:,0].view(-1, 1, 512, 512)
 
             pred = model(image)
-            loss = criterion(mask, pred)
+            loss = criterion(pred, mask)
             
             if is_train:
                 optimizer.zero_grad()
@@ -53,19 +53,12 @@ def run_epoch(model, optimizer, criterion, dataloader, device, epoch, mode = 'tr
 def train(model, optimizer, criterion, train_loader, val_loader, device, n_epochs = 50, scheduler=None, project_name = 'Ottawa'):
 
     wandb.init(project=project_name)
-    loss_history, iou_history = {'train': [], 'val':[]}, {'train': [], 'val':[]}
     start = time.time()
 
     for epoch in range(n_epochs):
 
         train_loss, train_iou = run_epoch(model, optimizer, criterion, train_loader, device, epoch, mode = 'train')
-        loss_history['train'].append(train_loss)
-        iou_history['train'].append(train_iou)
-
         val_loss, val_iou = run_epoch(model, None, criterion, val_loader, device, epoch, mode = 'val')
-        #val_loss, val_iou = 0, 0
-        loss_history['val'].append(val_loss)
-        iou_history['val'].append(val_iou)
 
         train_val_time = time.time() - start
         wandb.log({
@@ -86,5 +79,3 @@ def train(model, optimizer, criterion, train_loader, val_loader, device, n_epoch
             print('loss_train:', train_loss, 'loss_val:', val_loss)
             print('time:', train_val_time)
             print('-'*60)
-
-    return loss_history, iou_history
