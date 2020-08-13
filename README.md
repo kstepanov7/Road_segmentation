@@ -2,13 +2,27 @@
 
 This repository contains code related to the project of automatic road extraction from satellite images.
 
-# Content
-1. Dataset - folder with images, used in this work. It consists of urban areas of Ottawa, Canada from Google Earth, the images are with 0.21m spatial resolution per pixel (zoom level 19).
-2. Unet_GEO.ipynb - experiments for Unet with different losses.
+# Setup and Dependencies
+* Python3
+* Numpy
+* PyTorch
+* Weights & Biases [https://pypi.org/project/wandb/](https://pypi.org/project/wandb/)
+* Imagecodecs [https://pypi.org/project/imagecodecs/)](https://pypi.org/project/imagecodecs/)
 
+Setup:
+Dowload dataset and weights from [https://drive.google.com/drive/folders/1cngBCqf0ag7rx9Rtehkc_1J1vbZQAeE3?usp=sharing](https://drive.google.com/drive/folders/1cngBCqf0ag7rx9Rtehkc_1J1vbZQAeE3?usp=sharing) and change data path.
+
+
+# Content
+
+1. Folder 'models' contains UNet model target functions, used in this work.
+2. Folder 'data_preparation' contains two Jupyter notebooks - 'maploader.ipynb' and 'VectorToRaster.ipynb' showing how data for the custom dataset was collected and processed.
+3. 'dataset_wrapper.py' - PyTorch Dataset wrappers around the data.
+4. 'train_deep.py' - training and testing code for the UNet model.
+5. 'UNet_exp.ipynb' - experiments for Unet with different losses.
 
 # Results
-During experiments with different loss functions, it appears that using a per-pixel loss (such as Jaccard or Dice loss) between the output and ground-truth images can't provide predicted mask with a structure similar to road structure. For example, it can't extract road surface in situations when it blocked with tree or shadow. Using perceptual loss with pre-trained VGG-16 model can help us to extract high-level features from both ground-truth and predicted images and minimize the difference between the content of these images. As the result we get more smooth and continuous road mask. 
+During experiments with different loss functions, it appears that using a per-pixel loss (such as Jaccard or Dice loss) between the output and ground-truth images can't provide predicted mask with a structure similar to road structure. For example, it can't extract road surface in situations when it blocked with the tree or shadow. Using perceptual loss with pre-trained VGG-16 model can help us to extract high-level features from both ground-truth and predicted images and minimize the difference between the content of these images. As the result we get more smooth and continuous road mask. 
 
 Comparison of metrics is provided in the table below.
 
