@@ -41,5 +41,5 @@ Comparison of metrics is provided in the table below.
  
 ![alt text](https://github.com/kstepanov7/Roads-segmetation-with-Unet/blob/master/images/result_vgg.jpg?raw=true)
 
-![alt text](https://github.com/kstepanov7/Road_segmentation/blob/master/images/loss.png?raw=true)
+![alt text](https://github.com/kstepanov7/Road_segmentation/blob/master/images/loss%20(1).png?raw=true)
 
