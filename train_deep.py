@@ -18,7 +18,7 @@ logging.propagate = False
 logging.getLogger().setLevel(logging.ERROR)
 
 
-def run_epoch(model, optimizer, criterion, dataloader, device, epoch, tr = 0.6, mode = 'train'):
+def run_epoch(model, optimizer, criterion, dataloader, device, epoch, tr = 0.55, mode = 'train'):
 
     if mode == 'train':
       model.train(True)
@@ -50,15 +50,15 @@ def run_epoch(model, optimizer, criterion, dataloader, device, epoch, tr = 0.6, 
             
     return epoch_loss / len(dataloader), epoch_iou / len(dataloader)
 
-def train(model, optimizer, criterion, train_loader, val_loader, device, n_epochs = 50, scheduler=None, project_name = 'Ottawa'):
+def train(model, optimizer, criterion, train_loader, val_loader, device, n_epochs = 50, scheduler=None, project_name = 'Ottawa', tr = 0.55):
 
     wandb.init(project=project_name)
     start = time.time()
 
     for epoch in range(n_epochs):
 
-        train_loss, train_iou = run_epoch(model, optimizer, criterion, train_loader, device, epoch, mode = 'train')
-        val_loss, val_iou = run_epoch(model, None, criterion, val_loader, device, epoch, mode = 'val')
+        train_loss, train_iou = run_epoch(model, optimizer, criterion, train_loader, device, epoch, tr = tr, mode = 'train')
+        val_loss, val_iou = run_epoch(model, None, criterion, val_loader, device, epoch, tr = tr, mode = 'val')
 
         train_val_time = time.time() - start
         wandb.log({
