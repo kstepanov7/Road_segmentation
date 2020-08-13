@@ -18,7 +18,7 @@ logging.propagate = False
 logging.getLogger().setLevel(logging.ERROR)
 
 
-def run_epoch(model, optimizer, criterion, dataloader, device, epoch, mode = 'train'):
+def run_epoch(model, optimizer, criterion, dataloader, device, epoch, tr = 0.6, mode = 'train'):
 
     if mode == 'train':
       model.train(True)
