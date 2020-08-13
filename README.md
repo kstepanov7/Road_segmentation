@@ -6,8 +6,8 @@ This repository contains code related to the project of automatic road extractio
 * Python3
 * Numpy
 * PyTorch
-* Weights & Biases [https://pypi.org/project/wandb/](https://pypi.org/project/wandb/)
-* Imagecodecs [https://pypi.org/project/imagecodecs/)](https://pypi.org/project/imagecodecs/)
+* Weights & Biases [(https://pypi.org/project/wandb/)](https://pypi.org/project/wandb/)
+* Imagecodecs [(https://pypi.org/project/imagecodecs/)](https://pypi.org/project/imagecodecs/)
 
 Setup:
 Dowload dataset and weights from [https://drive.google.com/drive/folders/1cngBCqf0ag7rx9Rtehkc_1J1vbZQAeE3?usp=sharing](https://drive.google.com/drive/folders/1cngBCqf0ag7rx9Rtehkc_1J1vbZQAeE3?usp=sharing) and change data path.
