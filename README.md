@@ -1,4 +1,4 @@
-# Roads-segmentation-with-Unet
+# Roads segmentation with Unet
 
 This repository contains code related to the project of automatic road extraction from satellite images.
 
