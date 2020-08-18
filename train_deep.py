@@ -50,11 +50,13 @@ def run_epoch(model, optimizer, criterion, dataloader, device, epoch, tr = 0.55,
             
     return epoch_loss / len(dataloader), epoch_iou / len(dataloader)
 
-def train(model, optimizer, criterion, train_loader, val_loader, device, n_epochs = 50, scheduler=None, project_name = 'Ottawa', tr = 0.55):
-
-    wandb.init(project=project_name)
+def train(model, optimizer, criterion, train_loader, val_loader, device, n_epochs = 50, scheduler=None, project_name = 'Ottawa', run_name = None, tr = 0.55):
+    
+    if run_name = None:
+        run_name = time.ctime(time.time())
+    wandb.init(project = project_name, name = run_name)
+    
     start = time.time()
-
     for epoch in range(n_epochs):
 
         train_loss, train_iou = run_epoch(model, optimizer, criterion, train_loader, device, epoch, tr = tr, mode = 'train')
