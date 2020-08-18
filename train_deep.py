@@ -52,7 +52,7 @@ def run_epoch(model, optimizer, criterion, dataloader, device, epoch, tr = 0.55,
 
 def train(model, optimizer, criterion, train_loader, val_loader, device, n_epochs = 50, scheduler=None, project_name = 'Ottawa', run_name = None, tr = 0.55):
     
-    if run_name = None:
+    if run_name == None:
         run_name = time.ctime(time.time())
     wandb.init(project = project_name, name = run_name)
     
