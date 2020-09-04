@@ -20,7 +20,7 @@ from skimage import io
 #https://pytorch.org/tutorials/beginner/data_loading_tutorial.html
 class Create_Dataset(utils_data.Dataset):
 
-    def __init__(self, images_dir, masks_dir, transform=None, test = False):
+    def __init__(self, images_dir, masks_dir, transform=None, test = False, img_size = 256):
 
         self.images_dir = images_dir
         self.masks_dir = masks_dir
@@ -28,6 +28,7 @@ class Create_Dataset(utils_data.Dataset):
         self.images_titles = sorted(os.listdir(self.images_dir))
         self.masks_titles = sorted(os.listdir(self.masks_dir))
         self.test = test
+        self.img_size = img_size
         
     def __len__(self):
         return len(self.images_titles)
@@ -36,7 +37,7 @@ class Create_Dataset(utils_data.Dataset):
 
         images = skimage.io.imread(os.path.join(self.images_dir, self.images_titles[idx]))[:,:,:3]
         images = Image.fromarray((images / images.max()* 255).astype(np.uint8))
-        images = images.resize((512,512),Image.ANTIALIAS)
+        images = images.resize((self.img_size,self.img_size),Image.ANTIALIAS)
         seed = random.randint(0, 100)
         random.seed(seed)
         torch.manual_seed(seed)
@@ -47,7 +48,7 @@ class Create_Dataset(utils_data.Dataset):
         
         masks = skimage.io.imread(os.path.join(self.masks_dir, self.masks_titles[idx]))[:,:,:3]
         masks = Image.fromarray((masks / masks.max()* 255).astype(np.uint8))
-        masks = masks.resize((512,512),Image.ANTIALIAS)
+        masks = masks.resize((self.img_size,self.img_size),Image.ANTIALIAS)
         masks = ImageOps.invert(masks)
         random.seed(seed)
         torch.manual_seed(seed)
