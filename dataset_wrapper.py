@@ -47,10 +47,10 @@ class Create_Dataset(utils_data.Dataset):
         
         masks = Image.open(os.path.join(self.masks_dir, self.masks_titles[idx]))
         masks = masks.resize((self.img_size,self.img_size),Image.ANTIALIAS)
-        masks = ImageOps.invert(masks)
         random.seed(seed)
         torch.manual_seed(seed)
 
         masks = self.transform(masks)
+        masks[masks != 0] = 1
 
         return images, masks
